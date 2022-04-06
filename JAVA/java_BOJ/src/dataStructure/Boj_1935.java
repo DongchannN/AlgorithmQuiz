@@ -2,24 +2,34 @@ package dataStructure;
 
 import java.io.IOException;
 import java.util.*;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptEngine;
+import javax.script.ScriptException;
+
 
 public class Boj_1935 {
     public void solution() throws IOException {
+        ScriptEngineManager mgr = new ScriptEngineManager();
+        ScriptEngine engine = mgr.getEngineByName("JavaScript");
         Scanner scanner = new Scanner(System.in);
+
         List<String> operators = new ArrayList<String>(Arrays.asList("+","-","/","*")); //사칙연산자
         List<String> listInputExpression = new ArrayList<>();
-        HashMap<String,Integer> variableNumber = new HashMap<String, Integer>();
+
+        HashMap<String,String> variableNumber = new HashMap<String, String>();
 
         int variableAmount;        //amount of variable
 
         String inputExpression;    //Expression
         String expressionSaver;
         String afterExpression;
+
+        //input
         variableAmount = Integer.parseInt(scanner.nextLine());  //변수의 갯수 입력
         inputExpression = scanner.nextLine();                   //후위표기식 입력
 
         for (int i = 0; i < variableAmount; i+=1) {             //변수 (variableNumber)에 저장
-            int inputNumber = Integer.parseInt(scanner.nextLine());
+            String inputNumber = scanner.nextLine();
             int asciiNumber = 65 + i;
             char ascii = (char)asciiNumber;
             variableNumber.put(Character.toString(ascii),inputNumber);
@@ -46,6 +56,18 @@ public class Boj_1935 {
                 break;
             }
         }
-        
+
+        for (int i = 0; i < variableAmount; i +=1) {
+            int asciiNumber = 65 + i;
+            char ascii = (char)asciiNumber;
+            afterExpression = afterExpression.replaceAll(Character.toString(ascii), variableNumber.get(Character.toString(ascii)));
+        }
+        System.out.println(afterExpression);
+        try {
+            int result = (int) engine.eval(afterExpression);
+            System.out.println(result);
+        } catch (ScriptException e) {
+            e.printStackTrace();
+        }
     }
 }
