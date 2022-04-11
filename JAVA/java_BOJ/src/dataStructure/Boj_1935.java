@@ -1,73 +1,56 @@
 package dataStructure;
 
 import java.io.IOException;
-import java.util.*;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptEngine;
-import javax.script.ScriptException;
-
+import java.util.Scanner;
+import java.util.Stack;
 
 public class Boj_1935 {
     public void solution() throws IOException {
-        ScriptEngineManager mgr = new ScriptEngineManager();
-        ScriptEngine engine = mgr.getEngineByName("JavaScript");
         Scanner scanner = new Scanner(System.in);
+        Stack saver = new Stack<>();
+        int variableAmount = Integer.parseInt(scanner.nextLine());
 
-        List<String> operators = new ArrayList<String>(Arrays.asList("+","-","/","*")); //사칙연산자
-        List<String> listInputExpression = new ArrayList<>();
+        String expression = scanner.nextLine();
 
-        HashMap<String,String> variableNumber = new HashMap<String, String>();
+        double[] variableInput = new double[30];
 
-        int variableAmount;        //amount of variable
-
-        String inputExpression;    //Expression
-        String expressionSaver;
-        String afterExpression;
-
-        //input
-        variableAmount = Integer.parseInt(scanner.nextLine());  //변수의 갯수 입력
-        inputExpression = scanner.nextLine();                   //후위표기식 입력
-
-        for (int i = 0; i < variableAmount; i+=1) {             //변수 (variableNumber)에 저장
-            String inputNumber = scanner.nextLine();
-            int asciiNumber = 65 + i;
-            char ascii = (char)asciiNumber;
-            variableNumber.put(Character.toString(ascii),inputNumber);
+        for (int i = 0; i < variableAmount; i+=1) {
+            int input = Integer.parseInt(scanner.nextLine());
+            variableInput[i] = (float) input;
         }
 
-        for (int index = 0; index < inputExpression.length(); index+=1) {
-            listInputExpression.add(String.valueOf(inputExpression.charAt(index)));
-        }
+        for(int i = 0; i < expression.length(); i += 1) {
+            int asciiCode = (int) expression.charAt(i);
 
-        int checkingIndex = 0;
-        while (true) {
-            if (operators.contains(listInputExpression.get(checkingIndex))) {  //(listInputExpression)의 (checkingIndex)번쨰 값이 사칙연산자이면
-                expressionSaver = "("+listInputExpression.get(checkingIndex-2) + listInputExpression.get(checkingIndex) + listInputExpression.get(checkingIndex-1)+")";
-                listInputExpression.remove(checkingIndex);
-                listInputExpression.remove(checkingIndex-1);
-                listInputExpression.remove(checkingIndex-2);
-                listInputExpression.add(checkingIndex-2, expressionSaver);
-                checkingIndex = 0;
+            if (65 <= asciiCode && asciiCode <=90) {
+                saver.push(variableInput[asciiCode-65]);
             }else {
-                checkingIndex += 1 ;
-            }
-            if (listInputExpression.size() == 1) {
-                afterExpression = listInputExpression.get(0);
-                break;
-            }
-        }
+                double num2 = (double) saver.pop();
+                double num1 = (double) saver.pop();
+                double result;
+                switch (asciiCode) {
+                    case 43:
+                        result = num1 + num2;
+                        saver.push(result);
+                        break;
 
-        for (int i = 0; i < variableAmount; i +=1) {
-            int asciiNumber = 65 + i;
-            char ascii = (char)asciiNumber;
-            afterExpression = afterExpression.replaceAll(Character.toString(ascii), variableNumber.get(Character.toString(ascii)));
+                    case 45:
+                        result = num1 - num2;
+                        saver.push(result);
+                        break;
+
+                    case 42:
+                        result = num1 * num2;
+                        saver.push(result);
+                        break;
+
+                    case 47:
+                        result = num1 / num2;
+                        saver.push(result);
+                        break;
+                }
+            }
         }
-        System.out.println(afterExpression);
-        try {
-            int result = (int) engine.eval(afterExpression);
-            System.out.println(result);
-        } catch (ScriptException e) {
-            e.printStackTrace();
-        }
+        System.out.printf("%.2f",saver.pop());
     }
 }
