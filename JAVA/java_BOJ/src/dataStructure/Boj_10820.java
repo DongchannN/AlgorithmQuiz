@@ -1,5 +1,5 @@
 package dataStructure;
-
+//
 import java.util.Scanner;
 
 public class Boj_10820 {
