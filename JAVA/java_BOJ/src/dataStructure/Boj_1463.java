@@ -15,7 +15,7 @@ public class Boj_1463 {
 
         arr.add(input);
 
-        while ( true ) {
+        while ( !(arr.contains(1)) ) {
             int arrSize = arr.size();
             for (int i = 0; i < arrSize; i++) {
                 arr.add(arr.get(i)-1);
@@ -27,11 +27,11 @@ public class Boj_1463 {
                 }
 
             }
-            for (int j = 0; j < arrSize; j++){
-                arr.remove(0);
+            if (arrSize > 0) {
+                arr.subList(0, arrSize).clear();
             }
             times += 1;
-            if(arr.contains(1)) break;
+
         }
 
 
