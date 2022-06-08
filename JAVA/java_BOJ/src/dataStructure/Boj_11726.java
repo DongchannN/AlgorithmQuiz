@@ -1,34 +1,24 @@
 package dataStructure;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.lang.ArithmeticException;
 public class Boj_11726 {
     public void solution() throws ArithmeticException {
         Scanner scanner = new Scanner(System.in);
-        long inputNumber = scanner.nextInt();
-        long small, big;
-        long maxBig = inputNumber / 2;
+        int inputNumber = scanner.nextInt();
 
-        long count = 1;
-        for(big = 1; big <= maxBig; big++) {
-            small = inputNumber - (2 * big);
+        long[] arr = new long[1001];
 
-            long countingNumber = factorial(small + big) / (factorial(small) * factorial(big));
+        arr[0] = 1;
+        arr[1] = 2;
 
-            count += countingNumber;
+        for (int i = 2; i < inputNumber; i++) {
+            arr[i] = (arr[i-1] + arr[i-2]) % 10007;
         }
 
-        System.out.println(count % 10007);
-    }
 
-    private long factorial(long number) {
-        long output = 1;
-        for (long i = number; i > 0; i--) {
-            output *= i;
-        }
-        if (output == 0) {
-            output = 1;
-        }
-        return output;
+
+        System.out.println(arr[inputNumber-1]);
     }
 }
