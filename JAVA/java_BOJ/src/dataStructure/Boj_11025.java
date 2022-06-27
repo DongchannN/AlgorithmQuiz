@@ -1,52 +1,37 @@
 package dataStructure;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Scanner;
+
 
 public class Boj_11025 {
     public void solution(){
         Scanner scanner = new Scanner(System.in);
-
         int number = scanner.nextInt();
-        int[] cost = new int[number];
-        double[] oneCardCost = new double[number];
-        double[] sortedCardCost;
-        double[][] costAndOneCost = new double[number][2];
+        int[] mostCost = new int[number+1];  //카드를 가장 비싸개 뽑는 가격. ex) mostCost[3]는 카드 세장을 뽑는 가장 비싼 가격.
+        int[] P = new int[number+1];   //카드의 가격.
 
-        for (int i = 0; i < number; i++) {
-            cost[i] = scanner.nextInt();
-            oneCardCost[i] = (double) cost[i] / (i+1);
-            costAndOneCost[i][0] = cost[i];
-            costAndOneCost[i][1] = oneCardCost[i];
-        }
-        sortedCardCost = oneCardCost.clone();
-        Arrays.sort(sortedCardCost);
-
-        double money = 0;
-        int num = number;
-        for(int i = 0; i < number; i++) {
-            double finder = sortedCardCost[number-1-i];  //가장 큰 수부터 찾기 finder는 카드 한개 당 가격.
-            int numberOfCard = findIndex(finder, oneCardCost, number) + 1;  //카드의 갯수 ( 그 수의 인덱스 + 1)
-            int buyMax = num / numberOfCard;
-            if(buyMax == 0) continue;
-            num -= numberOfCard * buyMax;
-            money += finder * numberOfCard * buyMax;
+        P[0] = 0;
+        mostCost[0] = 0;
+        for(int i = 1; i < number + 1; i++) {  //가격 입력받기.
+            P[i] = scanner.nextInt();
         }
 
-        System.out.println((int)money);
-
+        for(int i = 1; i < number + 1; i++) {
+            int[] compare = new int[i];  //최대 가격에 대한 경우의 수 총 대입
+            for(int j = 0; j < i; j++) {
+                compare[j] = mostCost[j] + P[i - j];
+            }
+            mostCost[i] = getMax(compare, i);  //경우의 수 중 가장
+        }
+        System.out.println(mostCost[number]);
 
     }
-    static int findIndex(double findNumber, double[] array, int arraySize) {
-        int index = -1;
-        for(int i = 0; i < arraySize; i++) {
-            if(findNumber == array[i]) {
-                index = i;
-                break;
-            }
+
+    static int getMax(int[] compare, int size) { //배열 중 가장 큰 값 반환.
+        int max = compare[0];
+        for(int i = 1; i < size; i++) {
+            if(max < compare[i]) max = compare[i];
         }
-        return index;
+        return max;
     }
 }
