@@ -3,7 +3,7 @@ package dataStructure;
 import java.util.Scanner;
 
 
-public class Boj_11025 {
+public class Boj_11052 {
     public void solution(){
         Scanner scanner = new Scanner(System.in);
         int number = scanner.nextInt();
