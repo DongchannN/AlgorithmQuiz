@@ -1,11 +1,11 @@
 
-import dataStructure.Boj_2225;
+import dataStructure.Boj_15988;
 
 import java.io.IOException;
 
 
 public class solutionExecution {
     public static void main(String[] args) throws IOException {
-        new Boj_2225().solution();
+        new Boj_15988().solution();
     }
 }
