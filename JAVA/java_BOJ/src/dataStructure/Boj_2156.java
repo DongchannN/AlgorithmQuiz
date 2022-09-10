@@ -20,17 +20,23 @@ public class Boj_2156 {
 
         //drinkable 이 홀수면 짝수를 만들기 위해 0을 뒤에 붙임.
         if (drinkable % 2 == 1) {
-            capacity[drinkable + 1] = 0;
+            capacity[drinkable] = 0;
         }
 
-        executeCase(1, 0, capacity);
+        int[] firstCaseArr = capacity.clone();
+        int[] secondCaseArr = capacity.clone();
+        int[] thirdCaseArr = capacity.clone();
 
-        System.out.println(ans.get(0));
+        executeCase(1, 0, firstCaseArr, drinkable);
+        executeCase(2, 0, secondCaseArr, drinkable);
+        executeCase(3, 0, thirdCaseArr, drinkable);
+
+        System.out.println(getMaxArr(ans));
 
     }
 
-    static void executeCase(int caseNum, int startIndex, int[] arr) {
-        if (startIndex == arr.length) {
+    static void executeCase(int caseNum, int startIndex, int[] arr, int drinkable) {
+        if (startIndex >= drinkable) {
             ans.add(addArr(arr));
             return;
         }
@@ -38,14 +44,14 @@ public class Boj_2156 {
         if (caseNum == 1) {
             arr[startIndex + 1] = 0;
             startIndex += 2;
-            executeCase(2, startIndex, arr);
+            executeCase(2, startIndex, arr, drinkable);
         } else if (caseNum == 2) {
             startIndex += 2;
-            executeCase(3, startIndex, arr);
+            executeCase(3, startIndex, arr, drinkable);
         } else {
             arr[startIndex] = 0;
             startIndex += 2;
-            executeCase(1, startIndex, arr);
+            executeCase(1, startIndex, arr, drinkable);
         }
     }
 
@@ -55,5 +61,15 @@ public class Boj_2156 {
             add += j;
         }
         return add;
+    }
+
+    static int getMaxArr(ArrayList<Integer> arr) {
+        int max = arr.get(0);
+        for (int i = 1; i < arr.size(); i++) {
+            if (max < arr.get(i)) {
+                max = arr.get(i);
+            }
+        }
+        return max;
     }
 }
