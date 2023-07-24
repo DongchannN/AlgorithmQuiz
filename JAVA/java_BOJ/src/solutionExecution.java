@@ -1,4 +1,5 @@
-import dataStructure.Boj_2156;
+import math.*;
+import string.*;
 
 
 import java.io.IOException;
@@ -6,6 +7,6 @@ import java.io.IOException;
 
 public class solutionExecution {
     public static void main(String[] args) throws IOException {
-        new Boj_2156().solution();
+        new Boj_1157().solution();
     }
 }
