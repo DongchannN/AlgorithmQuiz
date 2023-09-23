@@ -5,52 +5,30 @@ import java.util.Scanner;
 public class Boj_13223 {
     public void solution() {
         Scanner scanner = new Scanner(System.in);
-        String nowStr = scanner.nextLine();
-        String nextStr = scanner.nextLine();
-        String[] nowSplit = nowStr.split(":");
-        String[] nextSplit = nextStr.split(":");
 
-        int nowHour = Integer.parseInt(nowSplit[0]);
-        int nowMin = Integer.parseInt(nowSplit[1]);
-        int nowSec = Integer.parseInt(nowSplit[2]);
+        String nowTime = scanner.nextLine();
+        String nextTime = scanner.nextLine();
 
-        int nextHour = Integer.parseInt(nextSplit[0]);
-        int nextMin = Integer.parseInt(nextSplit[1]);
-        int nextSec = Integer.parseInt(nextSplit[2]);
+        int nowHour = Integer.parseInt(nowTime.substring(0, 2));
+        int nowMin = Integer.parseInt(nowTime.substring(3, 5));
+        int nowSec = Integer.parseInt(nowTime.substring(6, 8));
+        int nextHour = Integer.parseInt(nextTime.substring(0, 2));
+        int nextMin = Integer.parseInt(nextTime.substring(3, 5));
+        int nextSec = Integer.parseInt(nextTime.substring(6, 8));
 
-        int sec;
-        System.out.println("sec : " + (nextSec - nowSec));
-        if (nextSec - nowSec < 0) {
-            nextMin -= 1;
-            sec = 60 + (nextSec - nowSec);
-        } else sec = nextSec - nowSec;
+        int totalNowSec = nowHour * 3600 + nowMin * 60 + nowSec;
+        int totalNextSec = nextHour * 3600 + nextMin * 60 + nextSec;
 
-        int min;
-        System.out.println("min : " + (nextMin - nowMin));
-        if (nextMin - nowMin < 0) {
-            nextHour -= 1;
-            min = 60 + (nextMin - nowMin);
-        } else min = nextMin - nowMin;
+        int subSec = totalNextSec - totalNowSec;
 
-        int hour;
-        System.out.println("H : " + (nextHour - nowHour));
-        if (nextHour - nowHour < 0) {
-            hour = 24 + (nextHour - nowHour);
-        } else hour = nextHour - nowHour;
+        if (subSec <= 0)
+            subSec += 24 * 3600;
 
-        String h = Integer.toString(hour);
-        String m = Integer.toString(min);
-        String s = Integer.toString(sec);
+        int h = subSec / 3600;
+        subSec %= 3600;
+        int m = subSec / 60;
+        int s = subSec % 60;
 
-        if (h.length() == 1) {
-            h = "0" + h;
-        }
-        if (m.length() == 1) {
-            m = "0" + m;
-        }
-        if (s.length() == 1) {
-            s = "0" + s;
-        }
-        System.out.println(h + ":" + m + ":" + s);
+        System.out.printf("%02d:%02d:%02d", h, m, s);
     }
 }
