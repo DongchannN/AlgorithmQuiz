@@ -4,77 +4,48 @@ import java.util.Scanner;
 
 public class Boj_10158 { // 시간 초과
     public void solution() {
+        // x(t) = x(t % (2 * width)) => t를 초기위치 + t로 치환가능
+        // y(t) = y(t % (2 * height))
+
         Scanner scanner = new Scanner(System.in);
+
         int width = scanner.nextInt();
         int height = scanner.nextInt();
-
-        int nowX = scanner.nextInt();
-        int nowY = scanner.nextInt();
-
+        int curX = scanner.nextInt();
+        int curY = scanner.nextInt();
         int time = scanner.nextInt();
 
-        int beforeX = 1;
-        int beforeY = 1;
+//        int delX = 1;
+//        int delY = 1;
+//
+//        int moveX = time % (2 * width);
+//        int moveY = time % (2 * height);
+//
+//        while (moveX > 0) {
+//            if (curX == width) delX = -1; // 방향 전환
+//            else if(curX == 0) delX = 1;
+//            curX += delX;
+//            moveX--;
+//        }
+//
+//        while (moveY > 0) {
+//            if (curY == height) delY = -1; // 방향 전환
+//            else if(curY == 0) delY = 1;
+//            curY += delY;
+//            moveY--;
+//        }
 
-//        System.out.println("first : " + nowX + " " + nowY);
-        nowX += beforeX;
-        nowY += beforeY;
+        curX = (time + curX) % (2 * width);
+        curY = (time + curY) % (2 * height);
 
-//        System.out.println("second : " + nowX + " " + nowY);
-        int nextX = 1;
-        int nextY = 1;
-
-        for (int i = 1; i < time; i++) {
-            if (beforeX == 1 && beforeY == 1) {
-                if (nowX == width && nowY == height) {
-                    beforeX = -1;
-                    beforeY = -1;
-                } else if (nowY == height) {
-                    beforeX = 1;
-                    beforeY = -1;
-                } else if (nowX == width) {
-                    beforeX = -1;
-                    beforeY = 1;
-                }
-            } else if (beforeX == 1 && beforeY == -1) {
-                if (nowX == width && nowY == 0) {
-                    beforeX = -1;
-                    beforeY = 1;
-                } else if (nowY == 0) {
-                    beforeX = 1;
-                    beforeY = 1;
-                } else if (nowX == width) {
-                    beforeX = -1;
-                    beforeY = -1;
-                }
-            } else if (beforeX == -1 && beforeY == -1) {
-                if (nowX == 0 && nowY == 0) {
-                    beforeX = 1;
-                    beforeY = 1;
-                } else if (nowY == 0) {
-                    beforeX = -1;
-                    beforeY = 1;
-                } else if (nowX == 0) {
-                    beforeX = 1;
-                    beforeY = -1;
-                }
-            } else if (beforeX == -1 && beforeY == 1) {
-                if (nowX == 0 && nowY == height) {
-                    beforeX = 1;
-                    beforeY = -1;
-                } else if (nowY == height) {
-                    beforeX = -1;
-                    beforeY = -1;
-                } else if (nowX == 0) {
-                    beforeX = 1;
-                    beforeY = 1;
-                }
-            }
-            nowX += beforeX;
-            nowY += beforeY;
-//            System.out.println("next : " + nowX + " " + nowY);
+        if (curX > width) {
+            curX = 2 * width - curX;
         }
 
-        System.out.println(nowX + " " + nowY);
+        if (curY > height) {
+            curY = 2 * height - curY;
+        }
+
+        System.out.println(curX + " " + curY);
     }
 }
