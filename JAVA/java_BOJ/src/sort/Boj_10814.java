@@ -8,13 +8,18 @@ import java.util.Comparator;
 
 public class Boj_10814 {
 
-    static class Info {
+    static class Info implements Comparable<Info>{
         int age;
         String name;
 
         public Info(int age, String name) {
             this.age = age;
             this.name = name;
+        }
+
+        @Override
+        public int compareTo(Info o) { // Arrays.sort(info); 와 같이 간단하게 정렬 가능함.
+            return this.age - o.age;
         }
     }
 

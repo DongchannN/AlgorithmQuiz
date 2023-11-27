@@ -4,6 +4,10 @@ import java.util.*;
 import java.io.*;
 
 public class Boj_1302 {
+    /**
+     * 사전 순으로 정렬한 뒤에 카운팅을 하면 더 쉽게 풀 수 있음.
+     * @throws IOException
+     */
     public void solution() throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());

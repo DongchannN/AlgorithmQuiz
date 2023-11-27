@@ -9,7 +9,7 @@ public class Boj_7785 { // Set 이용
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
 
-        Set<String> set = new HashSet<>();
+        Set<String> set = new HashSet<>(); // TreeSet 을 사용하게 되면 정렬을 할 수 있음.
 
         for (int i = 0; i < n; i++) {
             String[] s = br.readLine().split(" ");
