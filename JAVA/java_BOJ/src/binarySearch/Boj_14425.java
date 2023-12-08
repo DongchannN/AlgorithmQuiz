@@ -1,4 +1,4 @@
-package array;
+package binarySearch;
 
 import java.util.*;
 import java.io.*;
