@@ -2,6 +2,9 @@ package binarySearch;
 
 import java.util.*;
 
+/**
+ * Solve by Using binary search.
+ */
 public class Boj_2295 {
     public void solution() {
         Scanner scanner = new Scanner(System.in);
