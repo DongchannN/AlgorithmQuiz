@@ -10,8 +10,6 @@ public class Boj_2295 {
 
         int[] numArr = new int[number];
 
-        Arrays.sort(numArr);
-
         for (int i = 0; i < number; i++) {
             numArr[i] = scanner.nextInt();
         }
