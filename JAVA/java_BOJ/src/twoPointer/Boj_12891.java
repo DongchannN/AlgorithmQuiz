@@ -56,4 +56,29 @@ public class Boj_12891 {
 
         System.out.println(ans);
     }
+
+    public void solution2() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] input = br.readLine().split(" ");
+        int n = Integer.parseInt(input[0]);
+        int len = Integer.parseInt(input[1]);
+
+        char[] arr = br.readLine().toCharArray();
+        int[] minimumCnt = new int[4];
+        String[] stringNeeds = br.readLine().split(" ");
+        for (int i = 0; i < 4; i++)
+            minimumCnt[i] = Integer.parseInt(stringNeeds[i]);
+        int[] count = new int[4];
+
+        for (int i = 0; i < len - 1; i++)
+            count[convertToIdx(arr[i])]++;
+
+        int ans = 0;
+        for (int i = len - 1; i < n; i++) {
+            count[convertToIdx(arr[i])]++;
+            if (checkCanBePassword(count, minimumCnt)) ans++;
+            count[convertToIdx(arr[i - len + 1])]--;
+        }
+        System.out.println(ans);
+    }
 }
