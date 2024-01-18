@@ -9,9 +9,15 @@ public class Boj_1874 {
         int n = Integer.parseInt(br.readLine());
         List<Integer> arr = new ArrayList<>();
 
-        String s = "";
-        while (!(s = br.readLine()).equals(""))
+//        String s = "";
+//        while (!(s = br.readLine()).equals(""))
+//            arr.add(Integer.parseInt(s));
+
+        while (true) {
+            String s = br.readLine();
+            if (s == null || s.equals("")) break;
             arr.add(Integer.parseInt(s));
+        }
 
         Deque<Integer> stack = new LinkedList<>();
         List<Character> ans = new ArrayList<>();
@@ -24,13 +30,12 @@ public class Boj_1874 {
                     stack.pollFirst();
                     ans.add('-');
                     idx++;
-                }
+                } else break;
             }
         }
 
         if (idx == arr.size()) {
-            for (int i = 0; i < ans.size(); i++)
-                System.out.println(ans.get(i));
+            for (Character an : ans) System.out.println(an);
         } else System.out.println("NO");
     }
 }
