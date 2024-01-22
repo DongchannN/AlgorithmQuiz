@@ -6,21 +6,33 @@ import java.util.*;
 public class Boj_15654 {
 
     static int[] arr;
+    static int[] print;
+    static boolean[] visited;
     int m;
+    int n;
 
-    void printArr(int[] print, int cnt, int beforeIdx) {
-        if (cnt == m) {
+    void printArr(int printIdx) {
+        if (printIdx == m) {
+            StringBuilder sb = new StringBuilder();
             for (int i : print)
-                System.out.printf("%d ", i);
-            System.out.println();
+                sb.append(i + " ");
+            System.out.println(sb.toString());
             return ;
+        }
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) {
+                visited[i] = true;
+                print[printIdx] = arr[i];
+                printArr(printIdx + 1);
+                visited[i] = false;
+            }
         }
     }
 
     public void solution() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String[] input = br.readLine().split(" ");
-        int n = Integer.parseInt(input[0]);
+        n = Integer.parseInt(input[0]);
         m = Integer.parseInt(input[1]);
 
         String[] strArr = br.readLine().split(" ");
@@ -29,7 +41,8 @@ public class Boj_15654 {
             arr[i] = Integer.parseInt(strArr[i]);
 
         Arrays.sort(arr);
-        int[] print = new int[n];
-        printArr(print, 0, 0);
+        print = new int[m];
+        visited = new boolean[n];
+        printArr(0);
     }
 }
